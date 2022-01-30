@@ -5,7 +5,7 @@ import sqlite3
 
 root =Tk()
 root.title("DB Interface")
-root.iconbitmap("C:\\Users\\alenr\\OneDrive\\Escritorio\\Python\\Proyectos\\logoDB-removebg-preview.ico")
+root.iconbitmap("C:\\Users\\alenr\\OneDrive\\Escritorio\\Python\\DBInterface\\logoDB-removebg-preview.ico")
 
 
 nombrePantalla = StringVar()
@@ -28,7 +28,7 @@ def salirAplicacion():
 def conectarDB():
     #? CREAR LA BASE DE DATOS
     try:
-        Conexion = sqlite3.connect("C:\\Users\\alenr\\OneDrive\\Escritorio\\Python\\Proyectos\\Usuarios")
+        Conexion = sqlite3.connect("C:\\Users\\alenr\\OneDrive\\Escritorio\\Python\\DBInterface\\Usuarios")
         Cursor = Conexion.cursor()
         Cursor.execute('''
         CREATE TABLE DATOSUSUARIOS (
@@ -60,18 +60,10 @@ def borrarCampos():
 
 def crearRegistroMenu():
     #? CREA UN NUEVO REGISTRO DESDE EL MENU
-    nombre = nombrePantalla.get()
-    password = passwordPantalla.get()
-    apellido = apellidoPantalla.get()
-    direccion = direccionPantalla.get()
-    comentarios = cuadroComentario.get('1.0', 'end-1c')
-    usuario = [
-        (nombre, password, apellido, direccion, comentarios)
-    ]
-    Conexion = sqlite3.connect("C:\\Users\\alenr\\OneDrive\\Escritorio\\Python\\Proyectos\\Usuarios")
+    Conexion = sqlite3.connect("C:\\Users\\alenr\\OneDrive\\Escritorio\\Python\\DBInterface\\Usuarios")
     Cursor = Conexion.cursor()
     try:
-        Cursor.executemany("INSERT INTO DATOSUSUARIOS VALUES (NULL,?,?,?,?,?)", usuario)
+        Cursor.execute(f"INSERT INTO DATOSUSUARIOS VALUES (NULL, '{nombrePantalla.get()}', '{passwordPantalla.get()}', '{apellidoPantalla.get()}', '{direccionPantalla.get()}', '{cuadroComentario.get('1.0', 'end-1c')}')")
     except sqlite3.OperationalError:
         messagebox.showwarning("¡Atención!", "No se ha conectado con la BBDD")
     else:
@@ -88,7 +80,7 @@ def crearRegistroMenu():
 
 def leerRegistroMenu(id):
     cuadroComentario.delete("1.0", "end")
-    Conexion = sqlite3.connect("C:\\Users\\alenr\\OneDrive\\Escritorio\\Python\\Proyectos\\Usuarios")
+    Conexion = sqlite3.connect("C:\\Users\\alenr\\OneDrive\\Escritorio\\Python\\DBInterface\\Usuarios")
     Cursor = Conexion.cursor()
     try:
         Cursor.execute(f"SELECT * FROM DATOSUSUARIOS WHERE ID={id}")
@@ -107,7 +99,7 @@ def leerRegistroMenu(id):
 
 
 def actualizarRegistroMenu(id):
-    Conexion = sqlite3.connect("C:\\Users\\alenr\\OneDrive\\Escritorio\\Python\\Proyectos\\Usuarios")
+    Conexion = sqlite3.connect("C:\\Users\\alenr\\OneDrive\\Escritorio\\Python\\DBInterface\\Usuarios")
     Cursor = Conexion.cursor()
     try:
         Cursor.execute(f"UPDATE DATOSUSUARIOS SET NOMBRE_USUARIO='{nombrePantalla.get()}', PASSWORD='{passwordPantalla.get()}', APELLIDO='{apellidoPantalla.get()}', DIRECCION='{direccionPantalla.get()}', COMENTARIOS='{cuadroComentario.get('1.0', 'end-1c')}' WHERE ID={id}")
@@ -126,7 +118,7 @@ def actualizarRegistroMenu(id):
 
 
 def eliminarRegistroMenu(id):
-    Conexion = sqlite3.connect("C:\\Users\\alenr\\OneDrive\\Escritorio\\Python\\Proyectos\\Usuarios")
+    Conexion = sqlite3.connect("C:\\Users\\alenr\\OneDrive\\Escritorio\\Python\\DBInterface\\Usuarios")
     Cursor = Conexion.cursor()
     try:
         Cursor.execute(f"DELETE FROM DATOSUSUARIOS WHERE ID={id}")
@@ -166,18 +158,10 @@ def desenfocar():
 
 def crearRegistro():
     #? CREA UN NUEVO REGISTRO
-    nombre = nombrePantalla.get()
-    password = passwordPantalla.get()
-    apellido = apellidoPantalla.get()
-    direccion = direccionPantalla.get()
-    comentarios = cuadroComentario.get('1.0', 'end-1c')
-    usuario = [
-        (nombre, password, apellido, direccion, comentarios)
-    ]
-    Conexion = sqlite3.connect("C:\\Users\\alenr\\OneDrive\\Escritorio\\Python\\Proyectos\\Usuarios")
+    Conexion = sqlite3.connect("C:\\Users\\alenr\\OneDrive\\Escritorio\\Python\\DBInterface\\Usuarios")
     Cursor = Conexion.cursor()
     try:
-        Cursor.executemany("INSERT INTO DATOSUSUARIOS VALUES (NULL,?,?,?,?,?)", usuario)
+        Cursor.execute(f"INSERT INTO DATOSUSUARIOS VALUES (NULL, '{nombrePantalla.get()}', '{passwordPantalla.get()}', '{apellidoPantalla.get()}', '{direccionPantalla.get()}', '{cuadroComentario.get('1.0', 'end-1c')}')")
     except sqlite3.OperationalError:
         messagebox.showwarning("¡Atención!", "No se ha conectado con la BBDD")
     else:
@@ -194,7 +178,7 @@ def crearRegistro():
 
 def leerRegistro(id):
     cuadroComentario.delete("1.0", "end")
-    Conexion = sqlite3.connect("C:\\Users\\alenr\\OneDrive\\Escritorio\\Python\\Proyectos\\Usuarios")
+    Conexion = sqlite3.connect("C:\\Users\\alenr\\OneDrive\\Escritorio\\Python\\DBInterface\\Usuarios")
     Cursor = Conexion.cursor()
     try:
         Cursor.execute(f"SELECT * FROM DATOSUSUARIOS WHERE ID={id}")
@@ -213,7 +197,7 @@ def leerRegistro(id):
 
 
 def actualizarRegistro(id):
-    Conexion = sqlite3.connect("C:\\Users\\alenr\\OneDrive\\Escritorio\\Python\\Proyectos\\Usuarios")
+    Conexion = sqlite3.connect("C:\\Users\\alenr\\OneDrive\\Escritorio\\Python\\DBInterface\\Usuarios")
     Cursor = Conexion.cursor()
     try:
         Cursor.execute(f"UPDATE DATOSUSUARIOS SET NOMBRE_USUARIO='{nombrePantalla.get()}', PASSWORD='{passwordPantalla.get()}', APELLIDO='{apellidoPantalla.get()}', DIRECCION='{direccionPantalla.get()}', COMENTARIOS='{cuadroComentario.get('1.0', 'end-1c')}' WHERE ID={id}")
@@ -232,7 +216,7 @@ def actualizarRegistro(id):
 
 
 def eliminarRegistro(id):
-    Conexion = sqlite3.connect("C:\\Users\\alenr\\OneDrive\\Escritorio\\Python\\Proyectos\\Usuarios")
+    Conexion = sqlite3.connect("C:\\Users\\alenr\\OneDrive\\Escritorio\\Python\\DBInterface\\Usuarios")
     Cursor = Conexion.cursor()
     try:
         Cursor.execute(f"DELETE FROM DATOSUSUARIOS WHERE ID={id}")
@@ -318,6 +302,7 @@ passwordLabel.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
 
 cuadroPassword = Entry(frame, textvariable=passwordPantalla)
 cuadroPassword.grid(row=1, column=2, columnspan=3, padx=10, pady=10)
+cuadroPassword.config(show="*")
 
 
 #? APELLIDO---------------------------------------------------------------------------------------------------------
